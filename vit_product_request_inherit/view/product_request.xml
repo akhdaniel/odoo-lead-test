@@ -20,6 +20,10 @@
             <field name="inherit_id" ref="vit_product_request.view_vit_product_request_form"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='location_dest_id']" position="before">
+                    <field name="src_warehouse_id" required="1" />
+                </xpath>
+
                 <!-- 1 -->
                 <field name="reason" position="replace" />
 
@@ -37,12 +41,16 @@
                         <tree editable="bottom">
                             <field name="product_id"/>
                             <field name="name" string="Make/ Type/ Model"/>
-                            <field name="quantity" string="Qty"/>
-                            <field name="quantity_moved" string="Qty Moved"/>
-                            <field name="quantity_po" string="Qty PO"/>
-                            <field name="quantity_remaining" string="Qty Remain"/>
+                            <field name="quantity" string="Qty" readonly="0" />
+                            <field name="quantity_moved" string="Qty Moved" readonly="1" />
+                            <field name="quantity_po" string="Qty PO" readonly="1" />
+                            <field name="quantity_remaining" string="Qty Remain" readonly="1" />
                             <field name="spesification"/>
                             <field name="brochure"/>
+                            <field name="allow_create_product" invisible="0" />
+                            <button type="object" name="create_product" string="Create Product"
+                                    attrs="{'invisible':[('allow_create_product','=',False)]}" optional="hide"
+                                    groups="vit_product_request_inherit.group_productrequest_divisi_umum"/>
                         </tree>                    
                     </field>
                 </xpath>
@@ -59,9 +67,10 @@
 
                 <!-- 5 button Trasnfer -->
                 <header position="inside">
+                    <field name="allow_action" invisible="1" />
                     <button string="Create Transfer" type="object" 
                         name="action_create_transfer"
-                        states="done"
+                        attrs="{'invisible':[('allow_action','=',False)]}"
                         groups="vit_product_request_inherit.group_productrequest_divisi_umum"
                         />
                 </header>
@@ -70,7 +79,7 @@
                 <header position="inside">
                     <button string="Create RFQ" type="object" 
                         name="action_create_rfq"
-                        states="done"
+                        attrs="{'invisible':[('allow_action','=',False)]}"
                         groups="vit_product_request_inherit.group_productrequest_divisi_umum"
                         />
                 </header>

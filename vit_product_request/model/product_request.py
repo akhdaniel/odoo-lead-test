@@ -4,13 +4,15 @@
 STATES = [('draft', 'Draft'), ('open', 'Open'), ('done','Done')]
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, Warning
+from datetime import  datetime
 
 class product_request(models.Model):
 
     _name = "vit.product_request"
     _description = "vit.product_request"
+
     name = fields.Char( required=True, default="New", readonly=True,  string="Name",  help="nomor dokumen request", )
-    date = fields.Date( string="Date",  readonly=True, states={"draft" : [("readonly",False)]},  help="input transaction date", )
+    date = fields.Date( string="Date",  readonly=True, states={"draft" : [("readonly",False)]},  help="input transaction date", default=datetime.today())
     date_required = fields.Date( string="Date required",  readonly=True, states={"draft" : [("readonly",False)]},  help="input required date", )
     reason = fields.Html( string="Reason",  readonly=True, states={"draft" : [("readonly",False)]},  help="reason in HTML", )
     state = fields.Selection(selection=STATES,  readonly=True, default=STATES[0][0],  string="State",  help="", )
