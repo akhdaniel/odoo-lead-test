@@ -37,7 +37,7 @@ class product_request(models.Model):
         return super(product_request, self).unlink()
 
     def action_create_transfer(self):
-        
+        import pandas
         # cari wh_int picking type
         wh_int = self.env['stock.picking.type'].search([
             ('sequence_code','=','INT'),
@@ -76,7 +76,7 @@ class product_request(models.Model):
 
         # mencari picking type
         picking = self.env['stock.picking.type'].search([
-            ('name','=','Receipts'),('warehouse_id.code','=','WH2')
+            ('name','=','Receipts'),('warehouse_id.code','=','WH')
         ])
 
         #order lines, copy dari details product request
@@ -134,7 +134,7 @@ class product_request(models.Model):
 
     def action_view_po(self):
 
-        action = self.env.ref('stock.action_po_tree_all').sudo().read()[0]
+        action = self.env.ref('purchase.purchase_rfq').sudo().read()[0]
         pos = self.mapped('po_ids')
         if len(pos) > 1:
             action['domain'] = [('id', 'in', pos.ids)] # filter supaya hanya po yg id nya berada di po_ids product_request
