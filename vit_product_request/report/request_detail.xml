@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- report qweb view -->
+        <record id="action_report_vit_request_detail" model="ir.actions.report">
+            <field name="name">Request detail</field>
+            <field name="model">vit.request_detail</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">vit_product_request.vit_request_detail_report</field>
+            <field name="report_file">vit_product_request.vit_request_detail_report</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="vit_product_request.model_vit_request_detail"/>
+            <field name="binding_type">report</field>
+        </record>
+        <!-- document template -->
+        <template id="vit_product_request.vit_request_detail_report_document" >
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context({'lang': lang})"/>
+                <div class="page">
+                    <h2>
+                        Request detail: <span t-field="doc.name"/>
+                    </h2>
+                    <div class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Spesification</strong>
+                            <p class="m-0" t-field="doc.spesification" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Brochure</strong>
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Quantity</strong>
+                            <p class="m-0" t-field="doc.quantity" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Quantity moved</strong>
+                            <p class="m-0" t-field="doc.quantity_moved" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Quantity po</strong>
+                            <p class="m-0" t-field="doc.quantity_po" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Quantity remaining</strong>
+                            <p class="m-0" t-field="doc.quantity_remaining" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Product request</strong>
+                            <p class="m-0" t-field="doc.product_request_id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Product</strong>
+                            <p class="m-0" t-field="doc.product_id"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </t>
+        </template>
+
+        <!-- main template -->
+        <template id="vit_product_request.vit_request_detail_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.create_uid.lang"/>
+                    <t t-call="vit_product_request.vit_request_detail_report_document" />
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

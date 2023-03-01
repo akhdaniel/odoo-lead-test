@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_product_request_tree2" model="ir.ui.view">
+            <field name="name">product_request_tree</field>
+            <field name="model">vit.product_request</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="vit_product_request.view_vit_product_request_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='reason']" position="replace"/>
+            </field>
+        </record>
+
+        <!-- form view -->
+        <record id="view_product_request_form2" model="ir.ui.view">
+            <field name="name">product_request_form</field>
+            <field name="model">vit.product_request</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="vit_product_request.view_vit_product_request_form"/>
+            <field name="arch" type="xml">
+
+                <!-- 1 -->
+                <field name="reason" position="replace" />
+
+                <!-- 2 -->
+                <notebook position="inside">
+                    <page string="Reason">
+                        <field name="reason"/>
+                    </page>
+                </notebook>
+
+
+                <!-- 3 -->
+                <xpath expr="//notebook/page[@name='detail_ids']/field[@name='detail_ids']" position="replace">
+                    <field name="detail_ids">
+                        <tree editable="bottom">
+                            <field name="product_id"/>
+                            <field name="name" string="Make/ Type/ Model"/>
+                            <field name="quantity" string="Qty"/>
+                            <field name="quantity_moved" string="Qty Moved"/>
+                            <field name="quantity_po" string="Qty PO"/>
+                            <field name="quantity_remaining" string="Qty Remain"/>
+                            <field name="spesification"/>
+                            <field name="brochure"/>
+                        </tree>                    
+                    </field>
+                </xpath>
+
+
+                <!-- 4 modif buttons -->
+                <button name="action_done" position="replace">
+                    <button string="Send to GA" type="object" 
+                        name="action_done" 
+                        states="open" 
+                        groups="vit_product_request_inherit.group_productrequest_approver"/>
+                </button>
+
+
+                <!-- 5 button Trasnfer -->
+                <header position="inside">
+                    <button string="Create Transfer" type="object" 
+                        name="action_create_transfer"
+                        states="done"
+                        groups="vit_product_request_inherit.group_productrequest_divisi_umum"
+                        />
+                </header>
+                
+                <!-- 6 button PO -->
+                <header position="inside">
+                    <button string="Create RFQ" type="object" 
+                        name="action_create_rfq"
+                        states="done"
+                        groups="vit_product_request_inherit.group_productrequest_divisi_umum"
+                        />
+                </header>
+
+
+
+
+                <field name="po_count" position="replace"/>
+                <field name="transfer_count" position="replace"/>
+
+
+                <!-- 7 smart buttons -->
+                <div name="button_box" position="inside">
+                    <button type="object" name="action_view_transfer" class="oe_stat_button" icon="fa-pencil-square-o">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field string=" " name="transfer_count" widget="statinfo" readonly="1" />
+                            </span>
+                            <span class="o_stat_text">Transfer(s)</span>
+                        </div>
+                    </button>
+                    <button type="object" name="action_view_po" class="oe_stat_button" icon="fa-pencil-square-o">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field string=" " name="po_count" widget="statinfo" readonly="1" />
+                            </span>
+                            <span class="o_stat_text">PO(s)</span>
+                        </div>
+                    </button>
+                </div>
+
+                
+                
+            </field>
+        </record>
+        <!-- search -->
+        <!--record id="view_product_request_search" model="ir.ui.view">
+            <field name="name">product_request</field>
+            <field name="model">vit.product_request</field>
+            <field name="inherit_id" ref="vit_product_request.view_vit_product_request_search"/>
+            <field name="arch" type="xml">
+            </field>
+        </record-->
+        <!-- action window -->
+        <record id="vit_product_request.action_product_request" model="ir.actions.act_window">
+            <field name="name">Product request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vit.product_request</field>
+            <field name="view_mode">tree,form,kanban,pivot,calendar</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Product request
+                </p><p>
+                Click the Create button to add a new Product request
+                </p>
+            </field>
+        </record>
+
+        <menuitem active="1" id="vit_product_request.menu_product_request" name="Product request" parent="vit_product_request.vit_product_request_sub_menu" action="vit_product_request.action_product_request" sequence="20"/>
+    </data>
+</odoo>
