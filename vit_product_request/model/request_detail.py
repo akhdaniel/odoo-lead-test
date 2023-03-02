@@ -19,3 +19,8 @@ class request_detail(models.Model):
 
     product_request_id = fields.Many2one(comodel_name="vit.product_request",  string="Product request",  help="", )
     product_id = fields.Many2one(comodel_name="product.product",  string="Product",  help="", )
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id :
+            self.name = self.product_id.name
