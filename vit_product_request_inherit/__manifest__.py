@@ -27,11 +27,8 @@ Information
 
 """,
 	"data": [
-		"view/product_request.xml",
-		"security/groups.xml",
-		# "data/sequence_product_request.xml",
-		# "view/request_detail.xml",
-		# "view/product.xml",
+		"view/product_request_views.xml",
+		"security/groups.xml"
 	],
 	"installable": True,
 	"auto_install": False,
