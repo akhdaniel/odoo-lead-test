@@ -29,13 +29,13 @@ Information
 		"security/groups.xml",
 		"security/ir.model.access.csv",
 		"view/menu.xml",
-		"view/product_request.xml",
+		"view/product_request_views.xml",
 		"data/sequence_product_request.xml",
-		"view/request_detail.xml",
-		"view/product.xml", #inherited
-		"view/stock_location.xml", #inherited
-		"view/transfer.xml", #inherited
-		"view/po.xml", #inherited
+		"view/request_detail_views.xml",
+		"view/product_views.xml", #inherited
+		"view/stock_location_views.xml", #inherited
+		"view/stock_picking_views.xml", #inherited
+		"view/purchase_order_views.xml", #inherited
 		"report/product_request.xml",
 		"report/request_detail.xml",
 	],

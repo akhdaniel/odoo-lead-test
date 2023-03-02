@@ -82,42 +82,6 @@
                     </tbody>
                 </table>
                 <div class="oe_structure"/>
-                <h2>Transfer</h2>
-                <table class="table table-sm o_main_table" name="transfer_ids_table">
-                    <thead>
-                        <tr>
-                            <td> name</td>
-                            <td> inherit</td>
-                            <td>Product request</td>
-                        </tr>
-                    </thead>
-                    <tbody class="transfer_ids_tbody">
-                        <tr t-foreach="doc.transfer_ids" t-as="line">
-                            <td><span t-field="line._name" /></td>
-                            <td><span t-field="line._inherit" /></td>
-                            <td><span t-field="line.product_request_id" /></td>
-                        </tr> <!-- foreach-->
-                    </tbody>
-                </table>
-                <div class="oe_structure"/>
-                <h2>Po</h2>
-                <table class="table table-sm o_main_table" name="po_ids_table">
-                    <thead>
-                        <tr>
-                            <td> name</td>
-                            <td> inherit</td>
-                            <td>Product request</td>
-                        </tr>
-                    </thead>
-                    <tbody class="po_ids_tbody">
-                        <tr t-foreach="doc.po_ids" t-as="line">
-                            <td><span t-field="line._name" /></td>
-                            <td><span t-field="line._inherit" /></td>
-                            <td><span t-field="line.product_request_id" /></td>
-                        </tr> <!-- foreach-->
-                    </tbody>
-                </table>
-                <div class="oe_structure"/>
             </t>
         </template>
 
