@@ -54,8 +54,8 @@ class product_request(models.Model):
             for move in move_ids:
                 record.quantity_moved += move.product_uom_qty
                 record.quantity_remaining = record.quantity - (record.quantity_moved + record.quantity_po)
-                if record.quantity_remaining < record.quantity:
-                    raise UserError(_("Quantity Remaining cannot be less than the initial quantity!"))
+                if record.quantity_remaining < 0:
+                    raise UserError(_("Quantity Remaining cannot be minus!"))
 
     def _get_vendor_pricelist(self, product):
         """ Function to get vendor pricelist """
@@ -91,8 +91,8 @@ class product_request(models.Model):
             for line in order_ids:
                 record.quantity_po += line.product_qty
                 record.quantity_remaining = record.quantity - (record.quantity_moved + record.quantity_po)
-                if record.quantity_remaining < record.quantity:
-                    raise UserError(_("Quantity Remaining cannot be less than the initial quantity!"))
+                if record.quantity_remaining < 0:
+                    raise UserError(_("Quantity Remaining cannot be minus!"))
 
     transfer_count = fields.Integer( string="Transfer count", compute="_get_transfer_count")
     po_count = fields.Integer( string="PO count", compute="_get_po_count")
